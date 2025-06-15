@@ -9,7 +9,7 @@
 
   --background-color: white;
   --color: black;
-  --shadow-color: rgba(255, 255, 255, 0.8);
+  --shadow-color:#dcdcdc;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -22,7 +22,7 @@
   margin: 0;
   box-sizing: border-box;
 }
-html, body, #root {
+html, #root {
   height: 100%;
 }
 body{
@@ -33,12 +33,15 @@ body{
   scroll-behavior: smooth;
   overflow-x: hidden;
   cursor: default;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
 }
 
 [data-theme='dark']{
   --background-color: black;
   --color: white;
-  --shadow-color: rgba(44, 38, 38, 0.966);
 
 }
 
