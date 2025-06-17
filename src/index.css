@@ -42,6 +42,7 @@ body{
 [data-theme='dark']{
   --background-color: black;
   --color: white;
+  --shadow-color: #dcdcdc2c;
 
 }
 

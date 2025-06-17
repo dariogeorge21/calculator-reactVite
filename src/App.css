@@ -4,6 +4,8 @@
   padding:4px;
   
 }
+
+
 .container{
   
   height:auto;
@@ -22,7 +24,7 @@
   padding: 8px;
   width: 92%;
   text-align: right;
-  border: 1px solid black;
+  border: 1px solid var(--background-color);
   font-size: 20px;
   border-radius: 16px;
 }
@@ -44,10 +46,19 @@
   color: var(--color);
   font-size: large;
   border-radius: 16px;
-  border: 1px solid black;
+  border: 1px solid var(--background-color);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 29px;
   margin: 0.7rem;
+}
+.button{
+  background-color: var(--shadow-color);
+  color: var(--color);
+  margin:4px;
+  padding: 8px;
+  border: 1px solid var(--background-color);
+  border-radius:12px;
+
 }
