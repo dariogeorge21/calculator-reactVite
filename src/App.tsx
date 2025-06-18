@@ -105,7 +105,13 @@ function App() {
       </div>
 
       <div className="container">
-        <div className="result">{display}</div>
+        <div className="result">
+          {operator && firstNumber !== null && (
+            <div className="mini-display" style={{ fontSize: "0.8em", color: "#888" }}>
+              {firstNumber} {operator}
+            </div>
+          )}
+          {display}
         <div className="numberButtons">
           <button onClick={() => numberClick("7")} className="box">7</button>
           <button onClick={() => numberClick("8")} className="box">8</button>
@@ -135,6 +141,7 @@ function App() {
           <button onClick={handleClear} className="box">AC</button>
         </div>
       </div>
+    </div>
     </>
   );
 }
