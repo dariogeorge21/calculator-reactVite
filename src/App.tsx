@@ -5,7 +5,10 @@ function App() {
     const [isDark, setIsDark] = useState(() => {
     return localStorage.getItem('theme') === 'dark';
   });
-  const [question, setQuestion] = useState('');
+  const [display, setDisplay] = useState("0");
+  const [firstNumber, setFirstNumber] = useState(null);
+  const [operator, setOperator] = useState(null);
+  const [newNumber, setNewNumber] = useState(false);
 
   // Theme func
   useEffect(() => {
@@ -17,48 +20,48 @@ function App() {
     setIsDark(prev => !prev);
   };
 
-  // function one() {
-  //   setQuestion("1");
-  // }
-  //   function two() {
-  //   setQuestion("2");
-  // }
-  //   function three() {
-  //   setQuestion("3");
-  // }
-  //   function four() {
-  //   setQuestion("4");
-  // }
-  //   function five() {
-  //   setQuestion("5");
-  // }
-  //   function six() {
-  //   setQuestion("6");
-  // }
-  //   function seven() {
-  //   setQuestion("7");
-  // }
-  //   function eight() {
-  //   setQuestion("8");
-  // }
-  //   function nine() {
-  //   setQuestion("9");
-  // }
-  //   function zero() {
-  //   setQuestion("0");
-  // }
-  //   function doubleZero() {
-  //   setQuestion("00");
-  // }
-  //   function one() {
-  //   setQuestion("1");
-  // }
-  //   function one() {
-  //   setQuestion("1");
-  // }
-  //   function one() {
-  //   setQuestion("1");
-  // }
+  function numberClick(number){
+    if (newNumber){
+      setDisplay(number);
+    }
+    else{
+      setDisplay(display === "0"? number : display+number);
+    }
+  }
+
+  function operatorClick(nextOperator){
+    setFirstNumber(parseFloat(display));
+    setOperator(nextOperator);
+    setNewNumber(true);
+  }
+
+   function handleEqualClick() {
+    const secondNumber = parseFloat(display);
+    let result;
+
+    if (operator === "+") result = firstNumber + secondNumber;
+    else if (operator === "-") result = firstNumber - secondNumber;
+    else if (operator === "*") result = firstNumber * secondNumber;
+    else if (operator === "/") result = secondNumber === 0 ? "Error" : firstNumber / secondNumber;
+
+    setDisplay(String(result));
+    setFirstNumber(null);
+    setOperator(null);
+    setNewNumber(true);
+  }
+
+  function handleClear() {
+  setDisplay("0");
+  setFirstNumber(null);
+  setOperator(null);
+  setNewNumber(false);
+  }
+
+  function inputDot() {
+    if (!display.includes(".")) {
+      setDisplay(display + ".");
+    }
+  }
 
   return (
     <>
@@ -69,31 +72,31 @@ function App() {
     </div>
       
       <div className="container">
-        <div className="result">Result: </div>
-        <div className="result">{question ? question : 'Question:'}</div>
+        {/* <div className="result">Result: </div> */}
+        <div className="result">{display}</div>
         <div className="numberButtons">
-          <button onClick={() => setQuestion(prev => prev + '7')} className="box">7</button>
-          <button onClick={() => setQuestion(prev => prev + '8')} className="box">8</button>
-          <button onClick={() => setQuestion(prev => prev + '9')} className="box">9</button>
-          <button onClick={() => setQuestion(prev => prev + '%')} className="box">%</button>
-          <button onClick={() => setQuestion(prev => prev + '4')} className="box">4</button>
-          <button onClick={() => setQuestion(prev => prev + '5')} className="box">5</button>
-          <button onClick={() => setQuestion(prev => prev + '6')} className="box">6</button>
-          <button onClick={() => setQuestion(prev => prev + '/')} className="box">/</button>
-          <button onClick={() => setQuestion(prev => prev + '1')} className="box">1</button>
-          <button onClick={() => setQuestion(prev => prev + '2')} className="box">2</button>
-          <button onClick={() => setQuestion(prev => prev + '3')} className="box">3</button>
-          <button onClick={() => setQuestion(prev => prev + '*')} className="box">*</button>
-          <button onClick={() => setQuestion(prev => prev + '0')} className="box">0</button>
-          <button onClick={() => setQuestion(prev => prev + '.')} className="box">.</button>
-          <button onClick={() => setQuestion(prev => prev + '-')} className="box">-</button>
-          <button onClick={() => setQuestion(prev => prev + '+')} className="box">+</button>
-          <button onClick={() => setQuestion(prev => prev + '00')} className="box">00</button>
-          <button className="box">=</button>
-          <button className="box">
+          <button onClick={() => numberClick("7")}  className="box">7</button>
+          <button onClick={() => numberClick("8")}  className="box">8</button>
+          <button onClick={() => numberClick("9")}  className="box">9</button>
+          <button onClick={() => operatorClick("%")}  className="box">%</button>
+          <button onClick={() => numberClick("4")}  className="box">4</button>
+          <button onClick={() => numberClick("5")}  className="box">5</button>
+          <button onClick={() => numberClick("6")}  className="box">6</button>
+          <button onClick={() => operatorClick("/")}  className="box">/</button>
+          <button onClick={() => numberClick("1")}  className="box">1</button>
+          <button onClick={() => numberClick("2")}  className="box">2</button>
+          <button onClick={() => numberClick("3")}  className="box">3</button>
+          <button onClick={() => operatorClick("*")}  className="box">*</button>
+          <button onClick={() => numberClick("0")}  className="box">0</button>
+          <button onClick={inputDot} className="box">.</button>
+          <button onClick={() => operatorClick("-")}  className="box">-</button>
+          <button onClick={() => operatorClick("+")}  className="box">+</button>
+          <button onClick={() => numberClick("00")}  className="box">00</button>
+          <button onClick={handleEqualClick} className="box">=</button>
+          {/* <button className="box">
             <img src="/backspace.svg" alt="Backspace" style={{ width: 24, height: 24 }} />
-          </button>
-          <button className="box">AC</button>
+          </button> */}
+          <button onClick={handleClear} className="box">AC</button>
         </div>
       </div>
     </>
